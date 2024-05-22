@@ -1,4 +1,4 @@
-# NestJS Project
+# TMDB-APIs Project
 
 This is a NestJS project built with TypeScript, using PostgreSQL as the database and Prisma as the ORM. The project is organized into three main modules:
 
@@ -17,9 +17,6 @@ This is a NestJS project built with TypeScript, using PostgreSQL as the database
 2. **Make sure you have docker installed on your computer then run**:
    ```bash
    docker-compose up
-2. **Running Migrations**:
-   ```bash
-   npx prisma migrate deploy
 
 ## Modules
 
