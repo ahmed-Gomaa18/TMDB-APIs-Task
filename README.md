@@ -71,4 +71,5 @@ This is a NestJS project built with TypeScript, using PostgreSQL as the database
 >Database: PostgreSQL
 ORM: Prisma
 
-Ensure your database is set up and the connection details are correctly configured in your .env file.
+Ensure your install docker in your computer
+Kindly, Find attached `TMDB API.postman_collection.json` file 
