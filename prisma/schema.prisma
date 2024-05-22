@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // previewFeatures = ["createMany"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
+  password String
+
+  favorites Favorite[]
+
+  blocked Boolean @default(false)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+  blockedAt DateTime?
+}
+
+model Movie {
+  id       Int    @id @default(autoincrement())
+  y2022    String
+  y2023    String
+  title    String
+  director String
+  year     String
+  length   Int
+  colour   String
+
+  genre   Genre @relation(fields: [genreId], references: [id])
+  genreId Int
+
+  country   Country @relation(fields: [countryId], references: [id])
+  countryId Int
+
+  favorites Favorite[]
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+  deleteAt  DateTime?
+}
+
+model Genre {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  movies      Movie[]
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+  deleteAt  DateTime?
+}
+
+model Country {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  movies      Movie[]
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+  deleteAt  DateTime?
+}
+
+model Favorite {
+  id                Int   @id @default(autoincrement())
+  userId            Int
+  movieId           Int
+  additionalDetails Json?
+  user              User  @relation(fields: [userId], references: [id])
+  movie             Movie @relation(fields: [movieId], references: [id])
+
+  @@unique([userId, movieId])
+}

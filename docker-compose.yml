@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - '8080:8080'
+      env_file:
+        - .env
+      depends_on:
+        - db
+      command: >
+        sh -c "
+          npx prisma generate &&
+          npx prisma migrate deploy &&
+          npm run start:prod
+        "
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    container_name: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - '${DB_PORT}:5432'
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pgadmin4
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - '${PGADMIN_PORT}:80'
+
+volumes:
+  postgres-data:
