@@ -31,12 +31,12 @@ This is a NestJS project built with TypeScript, using PostgreSQL as the database
 
 
 ### Movie Module
->This module provides functionality to retrieve movies, perform search, sorting, pagination, and manage favorite movies.
+>This module provides functionality to retrieve movies, perform search, filtering, pagination, and manage favorite movies.
 
 ### Get Movies:
 **Endpoint**: **GET /movies/**
 
-***Description***: `Retrieve movies with options for search, sort, and pagination.`
+***Description***: `Retrieve movies with options for search, filte, and pagination.`
 
 ### Add Favorite:
 **Endpoint**: **POST /movies/addToFavorite**
